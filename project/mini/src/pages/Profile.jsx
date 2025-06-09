@@ -247,7 +247,7 @@ const Profile = () => {
                                     <input
                                         type="text"
                                         name="interests"
-                                        value={userData.interests.join(', ')}
+                                        value={Array.isArray(userData.interests) ? userData.interests.join(', ') : Object.values(userData.interests || {}).flat().join(', ')}
                                         onChange={handleInterestsChange}
                                         disabled={!isEditing}
                                     />
@@ -268,4 +268,4 @@ const Profile = () => {
     );
 };
 
-export default Profile; 
+export default Profile;

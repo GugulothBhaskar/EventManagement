@@ -24,11 +24,14 @@
 }
 
 .landing-navbar {
-  padding-right: 40px;
   display: flex;
+  flex-direction: row;
+  align-items: center;
   gap: 40px;
   position: relative;
   z-index: 1;
+  padding-right: 40px;
+  width: 100vw;
 }
 
 .landing-navbar a {
@@ -38,6 +41,7 @@
   font-size: 1.2rem;
   position: relative;
   transition: color 0.3s ease;
+  margin-left: auto;
 }
 
 .landing-navbar a:hover {
@@ -45,6 +49,28 @@
   text-shadow: 0px 0px 8px rgba(255, 204, 0, 0.8);
   transform: scale(1.1);
   transition: all 0.3s ease;
+}
+
+.landing-navbar .dropdown {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+}
+
+.landing-navbar .dropdown a {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.landing-navbar > a {
+  margin-left: 0;
+}
+
+.landing-navbar > .dropdown ~ a {
+  margin-left: auto;
 }
 
 .landing-content {

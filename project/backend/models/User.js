@@ -27,11 +27,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  interests: [{
-    type: String
-  }],
+  interests: {
+    type: Object, // Store as { category: [interest, ...] }
+    default: {}
+  },
   location: {
     type: String
+  },
+  locations: {
+    type: [String],
+    default: []
   },
   profilePicture: {
     type: String
@@ -73,4 +78,4 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = User; 
+module.exports = User;

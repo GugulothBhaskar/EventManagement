@@ -6,18 +6,10 @@ const auth = require('../middleware/auth');
 const fs = require('fs');
 const path = require('path');
 
-// Get all events with filtering and pagination
+//
 router.get('/', async (req, res) => {
   try {
-    const { category, location, search, page = 1, limit = 10 } = req.query;
-    const query = {};
-
-    if (category) query.category = category;
-    if (location) query.location = location;
-    if (search) {
-      query.$text = { $search: search };
-    }
-
+    const { page = 1, limit = 10, ...query } = req.query;
     const events = await Event.find(query)
       .sort({ date: 1 })
       .skip((page - 1) * limit)
