@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import './AdminLogin.css';
 import axios from 'axios';
 import API_URL from '../config/api';
+import { set } from 'mongoose';
 
 const AdminLogin = () => {
-  const [username, setUsername] = useState('');
+  const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -13,15 +14,20 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    try {
     const res = await axios.post(`${API_URL}/auth/login`,{
-      username,
+      email,
       password
-    })
+    });
     console.log(res.data,"admin login response");
-    if (username === 'admin' && password === 'admin123') {
-      localStorage.setItem('admin', 'true');
-      navigate('/dashboard');
-    } else {
+    if (res.data.user && res.data.user.role === 'admin') {
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+        navigate('/admindashboard');
+      }else {
+      setError('You are not authorized as admin.');
+    }
+   } catch (err) {
       setError('Invalid admin credentials');
     }
   };
@@ -35,8 +41,8 @@ const AdminLogin = () => {
           <label>email</label>
           <input
             type="text"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
+            value={email}
+            onChange={e => setemail(e.target.value)}
             required
             autoFocus
           />
