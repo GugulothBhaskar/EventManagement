@@ -7,6 +7,8 @@ import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AdminLogin from './pages/AdminLogin';
+import AdminRoute from './components/AdminRoutes';
+import PrivateRoute from './components/PrivateRoute';
 
 import InterestSelection from './pages/Interests';
 import Location from './pages/Location';
@@ -22,7 +24,7 @@ import MyTickets from './pages/MyTickets';
 import UpcomingEvents from './pages/UpcomingEvents';
 import Welcome from './pages/Welcome';
 import Profile from './pages/Profile';
-import PrivateRoute from './components/PrivateRoute';
+import AdminDashboard from './pages/AdminDashboard';
 
 const App = () => {
   return (
@@ -34,7 +36,12 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/adminlogin" element={<AdminLogin />} />
-            
+            <Route path="/admindashboard" element={
+           <AdminRoute>
+             <AdminDashboard />
+             </AdminRoute>
+           } />
+
             <Route path="/welcome" element={<PrivateRoute><Welcome /></PrivateRoute>} />
             <Route path="/interests" element={<PrivateRoute><InterestSelection /></PrivateRoute>} />
             <Route path="/location" element={<PrivateRoute><Location /></PrivateRoute>} />

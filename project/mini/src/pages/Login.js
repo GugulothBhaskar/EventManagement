@@ -43,7 +43,14 @@ const Login = () => {
         setSuccess('Login successful! Redirecting...');
         // Navigate to welcome page after 2 seconds
         setTimeout(() => {
-          navigate('/welcome');
+          const user=response.data.user;
+          if(user.role=='admin')
+          {
+               navigate('/admin/dashboard');
+          }
+          else{
+                navigate('/welcome');
+          }
         }, 2000);
       }
     } catch (err) {
@@ -79,7 +86,7 @@ const Login = () => {
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
-              type="email"
+             type="email"
               id="email"
               name="email"
               value={formData.email}
